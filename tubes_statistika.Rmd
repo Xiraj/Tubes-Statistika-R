@@ -8,6 +8,26 @@ This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute
 Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
 
 
+
+
+<font size="5"> Maksud Eksplorasi </font><br/>
+Kelompok kami mendapatkan data tentang Engineering Graduate Salary yang berisi data-data mengenai info terkait ID, gender, DOB, 10percentage, 10board, 12graduation, 12percentage, 12board, CollegeID, College Tier dan banyak data yang lainnya yang dapat kita eksplor. Maksud dari eksplorasi data ini kami ingin memperlihatkan data dari Engineering Graduate Salary berupa visualisasi dari data tersebut mulai dari Eksplorasi data univariant, Eksplorasi data bivariant, maupun Eksplorasi data multivariant serta melakukan analisis data yang telah didapatkan satu persatu. 
+
+
+<font size="5"> Variable yang di Eksplor </font><br/>
+Dari semua variable yang ada dalam data Engineering Graduate Salary, kami memilih sebanyak lima variabel yang akan di Eksplor. Lima variabel tersebut yaitu :  
+•	College GPA
+•	English 
+•	Logical
+•	Salary
+•	Gender (digunakan hanya pada Boxplot multivariant)
+
+
+<font size="5"> Alat dan Metode </font><br/>
+Untuk Alat yang kami gunakan dalam melakukan eksplorasi data ini yaitu dengan menggunakan Rstudio. Rstudio ini merupakan bahasa pemrograman yang paling sering digunakan untuk melakukan Eksplorasi serta Visualisasi dari suatu data. Metode yang kami gunakan untuk eksplorasi data ini yaitu Eksplorasi data univariant yang berisikan : histogram dan boxplot, Ekplorasi data bivariant yang berisikan : scatterplot, dan Eksplorasi data multi variant yang berisikan : ggpairs, boxplot multivariant atau multi dimensi.
+
+
+
 ```{r message=FALSE, warning=FALSE}
 # load libraries
 #df <- read_excel("~/Downloads/Engineering_graduate_salary.xlsx")
@@ -34,44 +54,148 @@ hist(
 )
 
 ```
+    Eksplorasi Data Univariant
+1.	Analisis Variabel College GPA
+Histogram dari variabel tersebut, menunjukkan bahwa GPA mahasiswa yang paling paling tinggi berada direntang 70-80 dengan frekuensi lebih dari 1200 dan yang paling rendah berada direntang 0 – 10 dengan frekuensi 0. 
+
+
+
+```{r}
+data <- df
+hist(
+  df$English, col="brown", main="Histogram of English", xlab="English", border="black"
+)
+```
+    Eksplorasi Data Univariant
+2.	Analisis Variabel English
+Histogram dari variabel tersebut, menunjukkan skor kemampuan berbahasa inggris dari setiap mahasiswa. Dari histogram tersebut, ditunjukkan bahwa skor inggris yang  paling tinggi berada direntang 450 – 500 dengan frekuensi lebih dari 500 dan yang paling rendah berada direntang 200 – 250 dengan frekuensinya antara 1 atau 2. 
+
+
+```{r}
+data <- df
+hist(
+  df$Logical, col="magenta", main="Histogram of Logical", xlab="Logical", border="black"
+)
+```
+    Eksplorasi Data Univariant
+3.	Analisis Variabel Logical
+Histogram dari variabel tersebut, menunjukkan skor kemampuan Logical dari setiap mahasiswa. Dari histogram tersebut, ditunjukkan bahwa skor logic yang paling tinggi berada direntang 450 – 500 dengan frekuensi lebih dari 500 dan  yang paling rendah berada direntang 700 – 750 dengan frekuensi 0.
+
+
+```{r}
+hist(
+  df$Salary, col="grey", main="Histogram of Salary", xlab="Salary", border="black"
+)
+```
+    Eksplorasi Data Univariant
+4.	Analisis Variabel Salary
+Dari histogram, dapat dilihat Salary yang paling tinggi berada pada frekuensi 2500 lebih pada 0e+00 dan frekuensi yang paling rendah berada di rentang 1e+06 – 2e+00 
+
 
 ```{r}
 plot(
-  df$ComputerScience, df$collegeGPA, ylab="College GPA", xlab="Computer Science", col="red"
+  df$collegeGPA, df$Salary, main = "College GPA dan Salary",ylab="Salary", xlab="College GPA", col="lightblue"
 )
+cor.test(df$collegeGPA,df$Salary, method = 'pearson')
 ```
+    Eksplorasi data Bivariant
+1.	Variabel College GPA dan Salary
+Dari scatter plot antara College GPA dengan Salary, didapatkan hubungan atau korelasi dari corelation test metode pearson yang bersifat positif lemah dan data pada plot tersebut ada yang menyebar dan ada juga yang menumpuk. Selain itu, didapatkan banyak pemusatan data yang menumpuk dari rentang 45 – 85.
+
+
+
 
 ```{r}
-ggplot(data, aes(x = collegeGPA, y = CollegeCityID, color = CollegeState)) +
-  geom_point(alpha = .5) + theme(plot.background=element_rect(fill="light blue")) 
+plot(
+  df$English, df$Logical, main = "English dan Logical",ylab="Logical", xlab="English", col="coral2"
+)
+cor.test(df$English,df$Logical, method = 'pearson')
 ```
+    Eksplorasi data Bivariant
+2.	Variabel English dan Logical 
+Dari scatter plot antara English dengan Logical, didapatkan hubungan atau korelasi didapatkan hubungan atau korelasi dari corelation test metode pearson yang bersifat positif lemah. Selain itu, didapatkan banyak pemusatan data ditengah – tengah dari rentang 300 – 750 dan ditemukan juga 1 data plot yang kurang dari 200.
+
+
 
 ```{r}
 # Menampilkan korelasi antar kombinasi pasangan fitur dataset
 data %>%
-  select(collegeGPA, CollegeCityID, CollegeID) %>%
+  select(collegeGPA, Salary, CollegeID) %>%
   ggpairs(
     title="Plot berbagai data", lower=list(continuous=wrap("smooth", alpha= 0.3, size=0.1))
   )
 ```
+    Eksplorasi Data Multivariant
+1.	Variabel College GPA, Salary, dan College ID
+Dari hasil ggpairs diatas, didapatkan korelasi antara College GPA, Salary, dan College ID. Dari beberapa korelasi tersebut, ditemukan 3 korelasi yaitu antara Salary dengan college GPA, College ID dengan College GPA, dan College ID dengan Salary. Salary dengan college GPA dan College ID dengan College GPA memiliki korelasi positif lemah. Sementara College ID dengan Salary memiliki korelasi negatif lemah.
+
+
 
 ```{r}
-# Membuat plot densitas dengan melibatkan warna untuk fitur tertentu  
-ggplot(data, aes(x = Salary, color = Gender, fill = Gender)) +
-  geom_density(alpha = .10) +
-  scale_x_log10(breaks = c(50, 100, 150, 200) * 500, labels = scales::dollar_format(2)) + theme(axis.text=element_text(size=8))
+# Menampilkan korelasi antar kombinasi pasangan fitur dataset
+data %>%
+  select(English, Logical, Quant) %>%
+  ggpairs(
+    title="Plot berbagai data", lower=list(continuous=wrap("smooth", alpha= 0.3, size=0.1))
+  )
 ```
+    Eksplorasi Data Multivariant
+2.	Variabel English, Logical dan Quant
+Dari hasil ggpairs diatas, didapatkan korelasi antara English, Logical, dan Quant. Dari beberapa korelasi tersebut, ditemukan 3 korelasi yaitu antara Logical dengan English, Quant dengan English, dan Quant dengan Logical. Logical dengan English dan Quant dengan English memiliki korelasi positif lemah. Sementara Quanr dengan Logical memiliki korelasi positif kuat.
+
+
 
 ```{r}
-ggplot(data, aes(x = factor(Degree), color = Degree, y = English)) +
-  geom_boxplot(outlier.colour="black", outlier.shape=16, outlier.size=1, notch=TRUE) 
-#notch untuk memperlihatkan median dengan jelas
+boxplot(df$English, col = "pink", main ="English")
+summary(df$English)
 ```
+    Eksplorasi Data Univariant
+1.	Analisis Variabel English
+Q1 = 425, Median = 500, Q3= 570. Dari visualisai boxplot diatas, dapat diketahui bahwa dari boxplot tersebut terdapat pencilan atas dan pencilan bawah meskipun pencilan atas lebih banyak dari pada pencilan bawah. Hal ini menunjukkan adanya kemencengan atau kecenderungan positif. Sehingga didapatkan penyebaran distribusi data yang simetris pada boxplot.
 
 
-Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
 
-When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file). 
+```{r}
+boxplot(df$collegeGPA, col = "skyblue", main ="College GPA")
+summary(df$collegeGPA)
+```
+    Eksplorasi Data Univariant
+2.	Analisis Variabel College GPA
+Q1 = 66.53, Median = 71.80, Q3 = 76.30. Dari visualisai boxplot diatas, dapat diketahui bahwa dari boxplot tersebut terdapat pencilan atas dan pencilan bawah meskipun pencilan atas lebih banyak dari pada pencilan bawah. Hal ini menunjukkan adanya kemencengan atau kecenderungan ke arah yang positif. Sehingga didapatkan penyebaran distribusi data yang simetris pada boxplot.
 
-The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+
+
+```{r}
+boxplot(df$Logical, col = "darkolivegreen2", main ="Logical")
+summary(df$Logical)
+```
+    Eksplorasi Data Univariant
+3.	Variabel Logical
+Q1 = 441.2, Median = 505, Q3 = 565 . Dari visualisai boxplot diatas, dapat diketahui bahwa dari boxplot tersebut terdapat pencilan atas dan pencilan bawah meskipun pencilan bawah lebih banyak dari pada pencilan atas. Hal ini menunjukkan adanya kemencengan atau kecenderungan ke arah yang negatif. Sehingga didapatkan penyebaran distribusi data yang simetris pada boxplot.
+
+
+
+```{r}
+boxplot(df$Salary, col = "darkgoldenrod", main ="Salary")
+summary(df$Salary)
+```
+    Eksplorasi Data Univariant
+4.	Variabel Salary
+Q1 = 180000, Median = 300000, Q3 = 370000. Dari visualisai boxplot diatas, dapat diketahui bahwa dari boxplot tersebut hanya terdapat pencilan atas yang sangat banyak. Hal ini menunjukkan adanya kemencengan atau kecenderungan ke arah yang positif. Sehingga didapatkan penyebaran distribusi data yang hampir mendekati kuartil 3 pada boxplot.
+
+
+
+```{r}
+ggplot(data, aes(x = factor(Gender), color = Gender, y = English)) +
+  geom_boxplot(outlier.colour="black", outlier.shape=16, outlier.size=1, notch=FALSE) 
+```
+  Eksplorasi Data Multivariant
+-	Variabel English dengan Variabel gender
+Dari visualisasi data diatas, dapat diketahui bahwa skor inggris yang dimiliki male dan female dari boxplot tersebut bersifat simetris karena mediannya berada ditengah-tengah. Selain itu, dapat dilihat bahwa di boxplot female memiliki pencilan atas sementara male memiliki pencilan atas dan bawah.
+
+
+
+
+
+
 
