@@ -3,10 +3,6 @@ title: "Tubes Statistika"
 output: html_notebook
 ---
 
-This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
-
-Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
-
 
 
 
@@ -16,10 +12,10 @@ Kelompok kami mendapatkan data tentang Engineering Graduate Salary yang berisi d
 
 <font size="5"> Variable yang di Eksplor </font><br/>
 Dari semua variable yang ada dalam data Engineering Graduate Salary, kami memilih sebanyak lima variabel yang akan di Eksplor. Lima variabel tersebut yaitu :  
-•	College GPA
-•	English 
-•	Logical
-•	Salary
+•	College GPA <br/>
+•	English <br/>
+•	Logical <br/>
+•	Salary <br/>
 •	Gender (digunakan hanya pada Boxplot multivariant)
 
 
